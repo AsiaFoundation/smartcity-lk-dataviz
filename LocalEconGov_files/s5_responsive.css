@@ -1,0 +1,319 @@
+/* ANY CSS FOR ALL WIDTHS GOES HERE
+----------------------------------------------------------- */
+
+#s5_map_canvas img { max-width:none !important;}
+
+
+/* ALL WIDTHS UNDER 970PX
+----------------------------------------------------------- */
+
+@media screen and (max-width: 970px){
+
+	/* DEFAULT
+	----------------- */
+
+	.s5_wrap {
+	width:100% !important;
+	}
+	
+	.s5_is_display, .s5_is_slide {
+	position:relative !important;
+	}
+	
+	.s5_is_slide {
+	height:auto !important;
+	}
+	
+	#fontControls {
+	display:none;
+	}
+	
+	/* CUSTOM
+	----------------- */
+	
+	body {
+	font-size:0.7em !important;
+	}
+	
+	.s5_wrap {
+	width:99% !important;
+	}
+	
+	#s5_nav li .s5_level1_span1 {
+	padding-left:11px;
+	padding-right:13px;
+	}
+	
+	#s5_button_frame ul li a {
+	padding-left:9px !important;
+	padding-right:11px !important;
+	}
+	
+	#s5_logo_wrap {
+	width:30%;
+	}
+	
+	.img-intro-left, .img-intro-right {
+	width:100%;
+	}
+
+	.img-fulltext-left, .img-fulltext-right {
+	width:100%;
+	}
+	
+	html, body {
+	height:auto;
+	}
+	
+	#s5_scroll_wrap .s5_scrolltotop {
+	display:none;
+	}
+	
+	#s5_bottom_menu_wrap {
+	float:left;
+	margin-top:12px;
+	}
+	
+	#s5_footer {
+	float:none;
+	}
+	
+	#s5_bottom_menu_wrap ul.menu li {
+	margin-left:0px;
+	margin-right:14px;
+	}
+	
+}
+
+
+/* TABLET PORTRAIT MODE CSS
+----------------------------------------------------------- */
+
+@media screen and (min-width:580px) and (max-width: 970px){
+
+	
+	/* CUSTOM
+	----------------- */
+	
+}
+
+
+/* TABLET PORTRAIT MODE CSS - SMALLER TABLETS
+----------------------------------------------------------- */
+
+@media screen and (max-width: 750px){
+
+	/* CUSTOM
+	----------------- */
+	
+	#s5_search_wrap {
+	display:none;
+	}
+	
+	#s5_logo_wrap {
+	width:45%;
+	}
+
+}
+
+
+/* MOBILE LAYOUT CSS
+----------------------------------------------------------- */
+
+@media screen and (max-width: 579px){
+
+	/* DEFAULT
+	----------------- */
+
+	#s5_right_column_wrap_inner .s5_float_left, #s5_left_column_wrap_inner .s5_float_left {
+	float:none;
+	}
+
+	#s5_columns_wrap_inner {
+	width:100%;
+	}
+
+	#s5_center_column_wrap {
+	width:100%;
+	left:100%;
+	}
+
+	#s5_left_column_wrap {
+	left:0%;
+	}
+	
+	#s5_left_top_wrap, #s5_left_column_wrap, #s5_left_inset_wrap, #s5_left_wrap, #s5_left_bottom_wrap, #s5_right_top_wrap, #s5_right_column_wrap, #s5_right_inset_wrap, #s5_right_wrap, #s5_right_bottom_wrap, #s5_top_row1 .s5_float_left, #s5_top_row2 .s5_float_left, #s5_top_row3 .s5_float_left, #s5_above_columns_inner .s5_float_left, #s5_middle_top .s5_float_left , #s5_middle_bottom .s5_float_left, #s5_below_columns_inner .s5_float_left, #s5_bottom_row1 .s5_float_left, #s5_bottom_row2, .s5_float_left, #s5_bottom_row3 .s5_float_left, #s5_above_body .s5_float_left, #s5_below_body .s5_float_left {
+	width:100% !important;
+	}
+	
+	#s5_center_column_wrap_inner {
+	margin:0px !important;
+	}
+	
+	#s5_left_column_wrap {
+	margin-right:0px !important;
+	}
+	
+	#s5_right_column_wrap {
+	margin-left:0px !important;
+	}
+	
+	.items-row .item {
+	width:100% !important;
+	padding-left:0px !important;
+	padding-right:0px !important;
+	margin-right:0px !important;
+	margin-left:0px !important;
+	}
+	
+	/* CUSTOM
+	----------------- */
+	
+	#s5_logo_wrap {
+	width:65%;
+	}
+	
+	.custom-row2_large .padded {
+	width:100% !important;
+	}
+	
+	#s5_top_row2_area1 .module_round_box-row2_large .s5_mod_h3_outer {
+	font-size:1.5em;
+	}
+
+}
+
+
+/* CUSTOM SIZES
+----------------------------------------------------------- */
+
+
+
+
+/* S5 BOX
+----------------------------------------------------------- */
+
+@media screen and (max-width: 970px){
+
+	#colorbox {
+	width:50% !important;
+	height:auto !important;
+	}
+	
+	#cboxWrapper {
+	width:100% !important;
+	}
+	
+	#cboxContent, #cboxLoadedContent {
+	width:100% !important;
+	height:auto !important;
+	}
+	
+	#colorbox {
+	left:25% !important;
+	width:50% !important;
+	height:100% !important;
+	top:25% !important;
+	}
+	
+}
+
+@media screen and (max-width: 750px){
+
+	#cboxOverlay, #colorbox {
+	display:none !important;
+	}
+	
+}
+
+
+
+/* S5 TAB SHOW
+----------------------------------------------------------- */
+
+@media screen and (max-width: 579px){
+
+	#s5_button_frame {
+	height:auto !important;
+	border-left:none !important;
+	}
+	
+	#s5_button_frame ul li, #s5_button_wrap1 {
+	margin:0px !important;
+	border:none !important;
+	}
+	
+	#s5_button_frame ul li {
+	float:none !important;
+	text-align:center !important;
+	border-bottom:1px solid #D2D1D1 !important;
+	border-left:none !important;
+	border-right:none !important;
+	}
+	
+	#s5_button_frame ul li a, #s5_button_frame ul li.s5_ts_active a {
+	padding-top:11px !important;
+	padding-bottom:11px !important;
+	}
+	
+	#s5_button_wrap0 {
+	margin:0px !important;
+	border-bottom:none !important;
+	}
+	
+}
+
+
+
+
+
+
+
+
+/* SINGLE COLUMN FOR SMALL TABLETS - THIS IS ONLY USED FOR IE7 AND IE8. THE CLASS IS SET WITH JAVASCRIPT FOR IE ONLY
+----------------------------------------------------------- */
+
+@media screen and (max-width: 750px){
+	
+	.s5_ie_single_column #s5_right_column_wrap_inner .s5_float_left, .s5_ie_single_column #s5_left_column_wrap_inner .s5_float_left {
+	float:none  !important;
+	}
+
+	.s5_ie_single_column #s5_columns_wrap_inner {
+	width:100%  !important;
+	}
+
+	.s5_ie_single_column #s5_center_column_wrap {
+	width:100%  !important;
+	left:100%  !important;
+	}
+
+	.s5_ie_single_column #s5_left_column_wrap {
+	left:0%  !important;
+	}
+	
+	.s5_ie_single_column #s5_left_top_wrap, .s5_ie_single_column #s5_left_column_wrap, .s5_ie_single_column #s5_left_inset_wrap, .s5_ie_single_column #s5_left_wrap, .s5_ie_single_column #s5_left_bottom_wrap, .s5_ie_single_column #s5_right_top_wrap, .s5_ie_single_column #s5_right_column_wrap, .s5_ie_single_column #s5_right_inset_wrap, .s5_ie_single_column #s5_right_wrap, .s5_ie_single_column #s5_right_bottom_wrap {
+	width:100% !important;
+	}
+	
+	.s5_ie_single_column #s5_center_column_wrap_inner {
+	margin:0px !important;
+	}
+	
+	.s5_ie_single_column #s5_left_column_wrap {
+	margin-right:0px !important;
+	}
+	
+	.s5_ie_single_column #s5_right_column_wrap {
+	margin-left:0px !important;
+	}
+	
+	.s5_ie_single_column  .items-row .item {
+	width:100% !important;
+	padding-left:0px !important;
+	padding-right:0px !important;
+	margin-right:0px !important;
+	margin-left:0px !important;
+	}
+
+}
