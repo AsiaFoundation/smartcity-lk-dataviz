@@ -81,22 +81,34 @@ function init() {
     });
     var high = [groups[0]];
     var medium = [groups[1]];
-    var low = [groups[2]];
+    var low = null;
+    if (groups.length > 2) {
+      low = [groups[2]];
+    }
     for (var c = 0; c < cols.length; c++) {
       high.push(categories[cols[c]][0]);
       medium.push(categories[cols[c]][1]);
-      low.push(categories[cols[c]][2]);
+      if (low) {
+        low.push(categories[cols[c]][2]);
+      }
     }
 
     var colors = {};
     colors[groups[0]] = 'rgb(23, 157, 57)';
     colors[groups[1]] = 'rgb(245, 170, 0)';
-    colors[groups[2]] = 'rgb(126, 40, 40)';
+    if (low) {
+      colors[groups[2]] = 'rgb(126, 40, 40)';
+    }
+
+    var dataset = [high, medium];
+    if (low) {
+      dataset.push(low);
+    }
 
     return c3.generate({
       bindto: divid,
       data: {
-        columns: [high, medium, low],
+        columns: dataset,
         type: 'bar',
         colors: colors
       },
@@ -131,6 +143,21 @@ function init() {
     'Library': [54, 34, 9]
   };
   var satChart = makeChart('#sat-chart', satisfactions, ['High', 'Medium', 'Low']);
+
+  var samsat = {
+    'Water': [85, 75],
+    'Sewerage': [54, 39],
+    'Solid waste': [70, 62],
+    'Roads': [43, 42],
+    'Street Lighting': [55, 48],
+    'Mother and Child Care': [57, 43],
+    'Cemetery': [80, 53],
+    'Parks': [52, 38],
+    'Playgrounds': [49, 37],
+    'Library': [59, 53]
+  };
+
+  var samChart = makeChart('#sam-chart', samsat, ['Samurdhi', 'Others']);
 
   var distances = {
     'Water': [6, 69, 0],
