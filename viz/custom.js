@@ -52,6 +52,72 @@ function init() {
     }
   });
 
+  var overall = c3.generate({
+    bindto: '#overall-chart',
+    data: {
+      columns: [
+        ['Satisfaction', 66]
+      ],
+      type: 'gauge'
+    },
+    gauge: {
+    },
+    color: {
+      pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'],
+      threshold: {
+        values: [30, 60, 90, 100]
+      }
+    },
+    size: {
+      height: 180
+    }
+  });
+
+  function makeChart(divid, categories, groups) {
+
+    var cols = Object.keys(categories);
+    cols = cols.sort(function(a, b) {
+      return categories[b][0] - categories[a][0];
+    });
+    var high = [groups[0]];
+    var medium = [groups[1]];
+    var low = [groups[2]];
+    for (var c = 0; c < cols.length; c++) {
+      high.push(categories[cols[c]][0]);
+      medium.push(categories[cols[c]][1]);
+      low.push(categories[cols[c]][2]);
+    }
+
+    var colors = {};
+    colors[groups[0]] = 'rgb(23, 157, 57)';
+    colors[groups[1]] = 'rgb(245, 170, 0)';
+    colors[groups[2]] = 'rgb(126, 40, 40)';
+
+    return c3.generate({
+      bindto: divid,
+      data: {
+        columns: [high, medium, low],
+        type: 'bar',
+        colors: colors
+      },
+      axis: {
+        x: {
+          tick: {
+            format: function (n) {
+              return cols[n];
+            },
+            culling: false
+          }
+        },
+        y: {
+          tick: {
+            format: function(d) { return Math.floor(d) + '%' }
+          }
+        }
+      }
+    });
+  }
+
   var satisfactions = {
     'Water': [75, 13, 3],
     'Sewerage': [40, 29, 17],
@@ -64,47 +130,35 @@ function init() {
     'Playgrounds': [38, 39, 18],
     'Library': [54, 34, 9]
   };
+  var satChart = makeChart('#sat-chart', satisfactions, ['High', 'Medium', 'Low']);
 
-  var cols = Object.keys(satisfactions);
-  cols = cols.sort(function(a, b) {
-    return satisfactions[b][0] - satisfactions[a][0];
-  });
-  var high = ['High'];
-  var medium = ['Medium'];
-  var low = ['Low'];
-  for (var c = 0; c < cols.length; c++) {
-    high.push(satisfactions[cols[c]][0]);
-    medium.push(satisfactions[cols[c]][1]);
-    low.push(satisfactions[cols[c]][2]);
-  }
+  var distances = {
+    'Water': [6, 69, 0],
+    'Sewerage': [56, 33, 36],
+    'Solid waste': [76, 57, 52],
+    'Roads': [57, 35, 35],
+    'Street Lighting': [67, 40, 40],
+    'Mother and Child Care': [65, 36, 32],
+    'Cemetery': [74, 42, 53],
+    'Parks': [60, 30, 38],
+    'Playgrounds': [56, 28, 45],
+    'Library': [76, 42, 48]
+  };
+  var distChart = makeChart('#dist-chart', distances, ['Very Close', 'Moderate', 'Far Away']);
 
-  var satChart = c3.generate({
-    bindto: '#sat-chart',
-    data: {
-      columns: [high, medium, low],
-      type: 'bar',
-      colors: {
-        'High': 'rgb(23, 157, 57)',
-        'Medium': 'rgb(245, 170, 0)',
-        'Low': 'rgb(126, 40, 40)'
-      }
-    },
-    axis: {
-      x: {
-        tick: {
-          format: function (n) {
-            return cols[n];
-          },
-          culling: false
-        }
-      },
-      y: {
-        tick: {
-          format: function(d) { return Math.floor(d) + '%' }
-        }
-      }
-    }
-  });
+  var availability = {
+    'Water': [96, 4, 0],
+    'Sewerage': [74, 17, 10],
+    'Solid waste': [98, 2, 1],
+    'Roads': [90, 6, 4],
+    'Street Lighting': [90, 3, 6],
+    'Mother and Child Care': [49, 48, 4],
+    'Cemetery': [67, 28, 5],
+    'Parks': [32, 44, 24],
+    'Playgrounds': [26, 57, 17],
+    'Library': [32, 49, 19]
+  };
+  var availChart = makeChart('#avail-chart', availability, ['Available, Using', 'Available, Not Using', 'Not Available']);
 
   // population pyramid via http://jsbin.com/jalex/1/edit?css,js,output
   var w = $("body").width() * 0.24, h = 280;
