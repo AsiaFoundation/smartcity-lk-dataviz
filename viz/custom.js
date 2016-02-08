@@ -45,7 +45,40 @@ function init() {
       },
       y: {
         tick: {
-          values: [0, 15, 30, 45, 60]
+          values: [0, 15, 30, 45, 60],
+          format: function(d) { return Math.floor(d) + '%' }
+        }
+      }
+    }
+  });
+
+  var satChart = c3.generate({
+    bindto: '#sat-chart',
+    data: {
+      columns: [
+        ['High', 75, 40, 63, 43, 49, 45, 54, 39, 38, 54],
+        ['Medium', 13, 29, 24, 31, 30, 30, 28, 38, 39, 34],
+        ['Low', 3, 17, 6, 19, 14, 10, 7, 16, 18, 9]
+      ],
+      type: 'bar',
+      colors: {
+        'High': 'rgb(23, 157, 57)',
+        'Medium': 'rgb(245, 170, 0)',
+        'Low': 'rgb(126, 40, 40)'
+      }
+    },
+    axis: {
+      x: {
+        tick: {
+          format: function (n) {
+            return ['Water', 'Sewerage', 'Solid waste', 'Roads', 'Street Lighting', 'Mother and Child Care', 'Cemetery', 'Parks', 'Playgrounds', 'Library'][n];
+          },
+          culling: false
+        }
+      },
+      y: {
+        tick: {
+          format: function(d) { return Math.floor(d) + '%' }
         }
       }
     }
