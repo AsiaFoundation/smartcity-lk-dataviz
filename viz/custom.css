@@ -1,0 +1,20 @@
+.clearfix {
+  clear: both;
+}
+
+.chartrow {
+  padding: 30px;
+}
+
+.chartrow > div {
+  float: left;
+  width: 30%;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .chartrow > div {
+    float: none;
+    width: 100%;
+  }
+}
