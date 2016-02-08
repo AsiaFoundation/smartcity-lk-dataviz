@@ -52,14 +52,36 @@ function init() {
     }
   });
 
+  var satisfactions = {
+    'Water': [75, 13, 3],
+    'Sewerage': [40, 29, 17],
+    'Solid waste': [63, 24, 6],
+    'Roads': [43, 31, 19],
+    'Street Lighting': [49, 30, 14],
+    'Mother and Child Care': [45, 30, 10],
+    'Cemetery': [54, 28, 7],
+    'Parks': [39, 38, 16],
+    'Playgrounds': [38, 39, 18],
+    'Library': [54, 34, 9]
+  };
+
+  var cols = Object.keys(satisfactions);
+  cols = cols.sort(function(a, b) {
+    return satisfactions[b][0] - satisfactions[a][0];
+  });
+  var high = ['High'];
+  var medium = ['Medium'];
+  var low = ['Low'];
+  for (var c = 0; c < cols.length; c++) {
+    high.push(satisfactions[cols[c]][0]);
+    medium.push(satisfactions[cols[c]][1]);
+    low.push(satisfactions[cols[c]][2]);
+  }
+
   var satChart = c3.generate({
     bindto: '#sat-chart',
     data: {
-      columns: [
-        ['High', 75, 40, 63, 43, 49, 45, 54, 39, 38, 54],
-        ['Medium', 13, 29, 24, 31, 30, 30, 28, 38, 39, 34],
-        ['Low', 3, 17, 6, 19, 14, 10, 7, 16, 18, 9]
-      ],
+      columns: [high, medium, low],
       type: 'bar',
       colors: {
         'High': 'rgb(23, 157, 57)',
@@ -71,7 +93,7 @@ function init() {
       x: {
         tick: {
           format: function (n) {
-            return ['Water', 'Sewerage', 'Solid waste', 'Roads', 'Street Lighting', 'Mother and Child Care', 'Cemetery', 'Parks', 'Playgrounds', 'Library'][n];
+            return cols[n];
           },
           culling: false
         }
