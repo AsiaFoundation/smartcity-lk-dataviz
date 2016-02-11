@@ -61,26 +61,33 @@ function init() {
     }
   });
 
-  var overall = c3.generate({
-    bindto: '#overall-chart',
-    data: {
-      columns: [
-        ['Satisfaction', 66]
-      ],
-      type: 'gauge'
-    },
-    gauge: {
-    },
-    color: {
-      pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'],
-      threshold: {
-        values: [30, 60, 90, 100]
+  function makeGauge(divid, satisfaction) {
+    return c3.generate({
+      bindto: divid,
+      data: {
+        columns: [
+          ['Satisfaction', satisfaction]
+        ],
+        type: 'gauge'
+      },
+      gauge: {
+      },
+      color: {
+        pattern: ['#FF0000', '#F6C600', '#60B044'],
+        threshold: {
+          values: [40, 60, 100]
+        }
+      },
+      size: {
+        height: 180
       }
-    },
-    size: {
-      height: 180
-    }
-  });
+    });
+  }
+
+  var overall = makeGauge('#overall-chart', 47);
+  var m = makeGauge('#male-gauge', 30);
+  var f = makeGauge('#female-gauge', 50);
+  var sg = makeGauge('#sam-gauge', 70);
 
   function makeChart(divid, categories, groups) {
 

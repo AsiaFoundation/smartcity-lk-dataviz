@@ -2,17 +2,17 @@
   clear: both;
 }
 
-.chartrow {
+.chartrow, .gaugerow {
   padding: 30px;
 }
 
-.chartrow > div {
+.chartrow > div, .gaugerow > div {
   float: left;
-  width: 22%;
+  width: 24%;
   text-align: center;
 }
 
-.chartrow > div.full {
+.chartrow > div.full, .gaugerow > div.full {
   float: none;
   width: 100%;
 }
