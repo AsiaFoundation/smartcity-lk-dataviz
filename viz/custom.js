@@ -1,3 +1,19 @@
+function emojiFor(category) {
+  var ems =  {
+    'Water': '💧',
+    'Solid waste': '🚮',
+    'Cemetery': '💀',
+    'Library': '📚',
+    'Street Lighting': '💡',
+    'Mother and Child Care': '🚼',
+    'Roads': '🚧',
+    'Sewerage': '💩',
+    'Parks': '🌳',
+    'Playgrounds': '🏏⚽'
+  };
+  return ems[category];
+}
+
 function init() {
   var maleColor = 'rgb(143, 169, 218)';
   var femaleColor = 'rgb(209, 132, 145)';
@@ -5,21 +21,30 @@ function init() {
   var genderChart = c3.generate({
     bindto: '#gender-chart',
     data: {
-        columns: [
-            ['Male', 43],
-            ['Female', 50],
-            ['Unrecorded', 7] // added by me
-        ],
-        colors: {
-          'Male': maleColor,
-          'Female': femaleColor,
-          'Unrecorded': 'rgb(255, 108, 80)'
-        },
-        type : 'pie'
-        //,
-        //onclick: function (d, i) { console.log("onclick", d, i); },
-        //onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-        //onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+      columns: [
+        ['Male', 44],
+        ['Female', 56]
+      ],
+      colors: {
+        'Male': maleColor,
+        'Female': femaleColor
+      },
+      type : 'pie'
+      //,
+      //onclick: function (d, i) { console.log("onclick", d, i); },
+      //onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+      //onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+    }
+  });
+
+  var sampieChart = c3.generate({
+    bindto: '#sampie-chart',
+    data: {
+      columns: [
+        ['Samrudhi', 6.4],
+        ['Other', 93.6]
+      ],
+      type : 'pie'
     }
   });
 
@@ -27,28 +52,12 @@ function init() {
     bindto: '#ethnicity-chart',
     data: {
       columns: [
-        ['One', 16, 16, 16, 16],
-        ['Multiple', 33, 21, 27, 20],
+        ['Sinhala', 71],
+        ['Tamil', 11.9],
+        ['Moor', 15.4],
+        ['Other', 1.7]
       ],
-      type: 'bar',
-      groups: [
-          ['One', 'Multiple']
-      ]
-    },
-    axis: {
-      x: {
-        tick: {
-          format: function (n) {
-            return ['Sinhala', 'Tamil', 'Moor', 'Other'][n];
-          }
-        }
-      },
-      y: {
-        tick: {
-          values: [0, 15, 30, 45, 60],
-          format: function(d) { return Math.floor(d) + '%' }
-        }
-      }
+      type: 'pie'
     }
   });
 
@@ -82,14 +91,21 @@ function init() {
     var high = [groups[0]];
     var medium = [groups[1]];
     var low = null;
+    var dunno = null;
     if (groups.length > 2) {
       low = [groups[2]];
+    }
+    if (groups.length > 3) {
+      dunno = [groups[3]];
     }
     for (var c = 0; c < cols.length; c++) {
       high.push(categories[cols[c]][0]);
       medium.push(categories[cols[c]][1]);
       if (low) {
         low.push(categories[cols[c]][2]);
+      }
+      if (dunno) {
+        dunno.push(categories[cols[c]][3]);
       }
     }
 
@@ -99,10 +115,21 @@ function init() {
     if (low) {
       colors[groups[2]] = 'rgb(126, 40, 40)';
     }
+    if (dunno) {
+      colors[groups[3]] = '#ccc';
+    }
 
     var dataset = [high, medium];
     if (low) {
       dataset.push(low);
+    }
+    if (dunno) {
+      dataset.push(dunno);
+    }
+
+    var groupMaker = [];
+    if (groups[0] === 'High' || groups[0] === 'Available, Using') {
+      groupMaker = [groups];
     }
 
     return c3.generate({
@@ -110,20 +137,26 @@ function init() {
       data: {
         columns: dataset,
         type: 'bar',
-        colors: colors
+        colors: colors,
+        groups: groupMaker,
+        order: 'asc'
       },
       axis: {
         x: {
           tick: {
             format: function (n) {
-              return cols[n];
+              if ($(window).width() < 760) {
+                return emojiFor(cols[n]) || cols[n];
+              } else {
+                return cols[n];
+              }
             },
             culling: false
           }
         },
         y: {
           tick: {
-            format: function(d) { return Math.floor(d) + '%' }
+            format: function(d) { if(d <= 100) { return Math.floor(d) + '%' } }
           }
         }
       }
@@ -131,18 +164,18 @@ function init() {
   }
 
   var satisfactions = {
-    'Water': [75, 13, 3],
-    'Sewerage': [40, 29, 17],
-    'Solid waste': [63, 24, 6],
-    'Roads': [43, 31, 19],
-    'Street Lighting': [49, 30, 14],
-    'Mother and Child Care': [45, 30, 10],
-    'Cemetery': [54, 28, 7],
-    'Parks': [39, 38, 16],
-    'Playgrounds': [38, 39, 18],
-    'Library': [54, 34, 9]
+    'Water': [75, 13, 3, 8],
+    'Sewerage': [40, 29, 17, 13],
+    'Solid waste': [63, 24, 6, 7],
+    'Roads': [43, 31, 19, 7],
+    'Street Lighting': [49, 30, 14, 8],
+    'Mother and Child Care': [45, 30, 10, 16],
+    'Cemetery': [54, 28, 7, 11],
+    'Parks': [39, 38, 16, 7],
+    'Playgrounds': [38, 39, 18, 5],
+    'Library': [54, 34, 9, 4]
   };
-  var satChart = makeChart('#sat-chart', satisfactions, ['High', 'Medium', 'Low']);
+  var satChart = makeChart('#sat-chart', satisfactions, ['High', 'Medium', 'Low', 'Don\'t Know']);
 
   var samsat = {
     'Water': [85, 75],
@@ -188,7 +221,7 @@ function init() {
   var availChart = makeChart('#avail-chart', availability, ['Available, Using', 'Available, Not Using', 'Not Available']);
 
   // population pyramid via http://jsbin.com/jalex/1/edit?css,js,output
-  var w = $("body").width() * 0.24, h = 280;
+  var w = $("body").width() * 0.15, h = 280;
 
   // margin.middle is distance from center line to each y-axis
   var margin = {

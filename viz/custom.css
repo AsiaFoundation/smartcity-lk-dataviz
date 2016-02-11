@@ -8,7 +8,7 @@
 
 .chartrow > div {
   float: left;
-  width: 30%;
+  width: 22%;
   text-align: center;
 }
 
@@ -17,9 +17,21 @@
   width: 100%;
 }
 
+#samurdhi {
+  margin-left: 20px;
+}
+
 @media (max-width: 700px) {
   .chartrow > div {
     float: none;
     width: 100%;
+  }
+
+  #samurdhi {
+    margin-left: 0;
+  }
+
+  th {
+    font-weight: normal !important;
   }
 }
