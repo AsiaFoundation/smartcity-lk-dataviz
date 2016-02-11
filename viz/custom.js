@@ -132,6 +132,11 @@ function init() {
       groupMaker = [groups];
     }
 
+    var rotate = 0;
+    if ($(window).width() < 767) {
+      rotate = 75;
+    }
+
     return c3.generate({
       bindto: divid,
       data: {
@@ -144,12 +149,9 @@ function init() {
       axis: {
         x: {
           tick: {
+            rotate: rotate,
             format: function (n) {
-              if ($(window).width() < 760) {
-                return emojiFor(cols[n]) || cols[n];
-              } else {
-                return cols[n];
-              }
+              return cols[n];
             },
             culling: false
           }
