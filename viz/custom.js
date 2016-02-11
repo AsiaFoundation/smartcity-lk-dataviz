@@ -88,6 +88,10 @@ function init() {
   var m = makeGauge('#male-gauge', 30);
   var f = makeGauge('#female-gauge', 50);
   var sg = makeGauge('#sam-gauge', 70);
+  var shg = makeGauge('#sinhala-gauge', 49);
+  var tmg = makeGauge('#tamil-gauge', 37);
+  var mog = makeGauge('#moor-gauge', 43);
+  var otg = makeGauge('#other-gauge', 36);
 
   function makeChart(divid, categories, groups) {
 
