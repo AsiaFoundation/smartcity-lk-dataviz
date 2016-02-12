@@ -234,7 +234,11 @@ function init() {
   var availChart = makeChart('#avail-chart', availability, ['Available, Using', 'Available, Not Using', 'Not Available']);
 
   // population pyramid via http://jsbin.com/jalex/1/edit?css,js,output
-  var w = $("body").width() * 0.15, h = 280;
+  var w = $("body").width() * 0.8;
+  if (w > 767) {
+    w *= 0.2;
+  }
+  var h = 280;
 
   // margin.middle is distance from center line to each y-axis
   var margin = {

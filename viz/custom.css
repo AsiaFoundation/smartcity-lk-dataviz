@@ -26,9 +26,13 @@ h4 {
 }
 
 @media (max-width: 700px) {
-  .chartrow > div {
+  .chartrow > div, .gaugerow > div {
     float: none;
     width: 100%;
+  }
+
+  .gaugerow > div {
+    margin-bottom: 15px;
   }
 
   #samurdhi {
