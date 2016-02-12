@@ -350,34 +350,40 @@ function init() {
     .attr('transform', translation(pointB, h))
     .call(xAxisRight);
 
-  leftBarGroup.selectAll('.bar.left')
+  var mbars = leftBarGroup.selectAll('.bar.left')
     .data(exampleData)
-    .enter().append('rect')
+    .enter().append('g');
+
+  mbars.append('rect')
       .attr('class', 'bar left')
       .attr('x', 0)
       .attr('y', function(d) { return yScale(d.group); })
       .attr('width', function(d) { return xScale(percentage(d.male)); })
       .attr('height', yScale.rangeBand())
-      .attr('fill', maleColor)
-      .append('text').text(function(d) { return d.male });
-      /*
-      .on('mouseover', function(d) {
-        console.log(d.male);
-      });
-      */
+      .attr('fill', maleColor);
 
-  rightBarGroup.selectAll('.bar.right')
+  mbars.append('text')
+      .text(function(d) { return d.male + '%' })
+      .attr('transform', 'scale(-1,1)')
+      .attr('x', function(d) { return -1 * xScale(percentage(d.male)) - 25; })
+      .attr('y', function(d) { return yScale(d.group) + 36; });
+
+  var fbars = rightBarGroup.selectAll('.bar.right')
     .data(exampleData)
-    .enter().append('rect')
+    .enter().append('g');
+
+  fbars.append('rect')
       .attr('class', 'bar right')
       .attr('x', 0)
       .attr('y', function(d) { return yScale(d.group); })
       .attr('width', function(d) { return xScale(percentage(d.female)); })
       .attr('height', yScale.rangeBand())
-      .attr('fill', femaleColor)
-      .on('mouseover', function(d) {
-        console.log(d.female);
-      });
+      .attr('fill', femaleColor);
+
+  fbars.append('text')
+      .text(function(d) { return d.female + '%' })
+      .attr('x', function(d) { return xScale(percentage(d.female)) + 5; })
+      .attr('y', function(d) { return yScale(d.group) + 36; });
 
   function translation(x,y) {
     return 'translate(' + x + ',' + y + ')';
