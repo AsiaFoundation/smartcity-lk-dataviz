@@ -358,7 +358,13 @@ function init() {
       .attr('y', function(d) { return yScale(d.group); })
       .attr('width', function(d) { return xScale(percentage(d.male)); })
       .attr('height', yScale.rangeBand())
-      .attr('fill', maleColor);
+      .attr('fill', maleColor)
+      .append('text').text(function(d) { return d.male });
+      /*
+      .on('mouseover', function(d) {
+        console.log(d.male);
+      });
+      */
 
   rightBarGroup.selectAll('.bar.right')
     .data(exampleData)
@@ -368,7 +374,10 @@ function init() {
       .attr('y', function(d) { return yScale(d.group); })
       .attr('width', function(d) { return xScale(percentage(d.female)); })
       .attr('height', yScale.rangeBand())
-      .attr('fill', femaleColor);
+      .attr('fill', femaleColor)
+      .on('mouseover', function(d) {
+        console.log(d.female);
+      });
 
   function translation(x,y) {
     return 'translate(' + x + ',' + y + ')';
