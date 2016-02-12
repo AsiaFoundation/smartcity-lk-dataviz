@@ -1,3 +1,7 @@
+if (typeof console === 'undefined') {
+  console = { log: function() { } };
+}
+
 function emojiFor(category) {
   var ems =  {
     'Water': '💧',
