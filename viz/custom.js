@@ -239,7 +239,7 @@ function init() {
 
   // population pyramid via http://jsbin.com/jalex/1/edit?css,js,output
   var w = $("#middlecontainer").width() * 0.8;
-  if ($(window).width() > 767) {
+  if ($(window).width() > 700) {
     w *= 0.2;
   }
   var h = 280;
