@@ -45,7 +45,7 @@ function init() {
     bindto: '#sampie-chart',
     data: {
       columns: [
-        ['Samrudhi', 6.4],
+        ['Samurdhi', 6.4],
         ['Other', 93.6]
       ],
       type : 'pie'
@@ -238,8 +238,8 @@ function init() {
   var availChart = makeChart('#avail-chart', availability, ['Available, Using', 'Available, Not Using', 'Not Available']);
 
   // population pyramid via http://jsbin.com/jalex/1/edit?css,js,output
-  var w = $("body").width() * 0.8;
-  if (w > 767) {
+  var w = $("#middlecontainer").width() * 0.8;
+  if ($(window).width() > 767) {
     w *= 0.2;
   }
   var h = 280;
@@ -272,7 +272,7 @@ function init() {
       percentage = function(d) { return d / totalPopulation; };
 
   var svg = d3.select('#pop-pyramid').append('svg')
-    .attr('width', margin.left + w + margin.right)
+    .attr('width', margin.left + (w * 1.2) + margin.right)
     .attr('height', margin.top + h + margin.bottom)
     .append('g')
       .attr('transform', translation(margin.left, margin.top));

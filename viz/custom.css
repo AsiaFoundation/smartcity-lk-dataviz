@@ -17,8 +17,8 @@
   width: 100%;
 }
 
-#samurdhi {
-  margin-left: 20px;
+#pop-pyramid {
+  margin-left: 0;
 }
 
 h4 {
@@ -40,6 +40,10 @@ td.blank {
 }
 
 @media (max-width: 700px) {
+  table {
+    display: none;
+  }
+
   .chartrow > div, .gaugerow > div {
     float: none;
     width: 100%;
