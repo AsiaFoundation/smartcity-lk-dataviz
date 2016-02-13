@@ -247,9 +247,9 @@ function init() {
   // margin.middle is distance from center line to each y-axis
   var margin = {
     top: 20,
-    right: 20,
+    right: 40,
     bottom: 24,
-    left: 20,
+    left: 40,
     middle: 28
   };
 
@@ -272,7 +272,7 @@ function init() {
       percentage = function(d) { return d / totalPopulation; };
 
   var svg = d3.select('#pop-pyramid').append('svg')
-    .attr('width', margin.left + (w * 1.2) + margin.right)
+    .attr('width', margin.left + w + margin.right)
     .attr('height', margin.top + h + margin.bottom)
     .append('g')
       .attr('transform', translation(margin.left, margin.top));
