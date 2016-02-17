@@ -2,22 +2,6 @@ if (typeof console === 'undefined') {
   console = { log: function() { } };
 }
 
-function emojiFor(category) {
-  var ems =  {
-    'Water': '💧',
-    'Solid waste': '🚮',
-    'Cemetery': '💀',
-    'Library': '📚',
-    'Street Lighting': '💡',
-    'Mother and Child Care': '🚼',
-    'Roads': '🚧',
-    'Sewerage': '💩',
-    'Parks': '🌳',
-    'Playgrounds': '🏏⚽'
-  };
-  return ems[category];
-}
-
 function init() {
   var maleColor = 'rgb(143, 169, 218)';
   var femaleColor = 'rgb(209, 132, 145)';
