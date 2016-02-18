@@ -6,12 +6,12 @@ function init() {
   var maleColor = 'rgb(143, 169, 218)';
   var femaleColor = 'rgb(209, 132, 145)';
 
-  function makeGauge(divid, satisfaction) {
+  function makeChangeGauge(divid, num1, num2) {
     return c3.generate({
       bindto: divid,
       data: {
         columns: [
-          ['Satisfaction', satisfaction]
+          ['Satisfaction', num1, num2],
         ],
         type: 'gauge'
       },
@@ -25,6 +25,9 @@ function init() {
       },
       size: {
         height: 180
+      },
+      tooltip: {
+        show: false
       }
     });
   }
@@ -49,7 +52,7 @@ function init() {
       var ngroups = groups.concat([]);
       if (groups[0] === 'High' || groups[0] === 'Available, Using') {
         if (multiyear) {
-          for (var g = 0; g < ngroups.length; g++) {
+          for (var g = 0; g < 1 && g < ngroups.length; g++) {
             ngroups[g] = ngroups[g] + ' (' + years[y] + ')';
           }
         }
@@ -79,22 +82,24 @@ function init() {
         }
       }
 
-      colors[ngroups[0]] = 'rgb(23, 157, 57)';
-      colors[ngroups[1]] = 'rgb(245, 170, 0)';
-      if (low) {
-        colors[ngroups[2]] = 'rgb(126, 40, 40)';
-      }
-      if (dunno) {
-        colors[ngroups[3]] = '#ccc';
-      }
-
       dataset.push(high);
-      dataset.push(medium);
-      if (low) {
-        dataset.push(low);
-      }
-      if (dunno) {
-        dataset.push(dunno);
+      if (!multiyear) {
+        dataset.push(medium);
+        if (low) {
+          dataset.push(low);
+        }
+        if (dunno) {
+          dataset.push(dunno);
+        }
+
+        colors[ngroups[0]] = 'rgb(23, 157, 57)';
+        colors[ngroups[1]] = 'rgb(245, 170, 0)';
+        if (low) {
+          colors[ngroups[2]] = 'rgb(126, 40, 40)';
+        }
+        if (dunno) {
+          colors[ngroups[3]] = '#ccc';
+        }
       }
     }
 
@@ -111,8 +116,7 @@ function init() {
         colors: colors,
         groups: groupMaker,
         order: function(x, y) {
-          var bars = ['don\'t know', 'high', 'medium', 'low', 'available, using', 'available, not', 'not available'];
-          bars.reverse();
+          var bars = ["others", "samurdhi", "not available", "available, not", "available, using", "low", "medium", "high", "don't know"];
           for (var b = 0; b < bars.length; b++) {
             if (x.id.toLowerCase().indexOf(bars[b]) > -1) {
               return -1;
@@ -141,6 +145,16 @@ function init() {
     });
   }
 
+
+  var overall = makeChangeGauge('#overall-chart', 26, 25);
+  var m = makeChangeGauge('#male-gauge', 26, 25);
+  var f = makeChangeGauge('#female-gauge', 24, 24);
+  var sg = makeChangeGauge('#sam-gauge', 25, 23);
+  var shg = makeChangeGauge('#sinhala-gauge', 1, 11);
+  var tmg = makeChangeGauge('#tamil-gauge', 25, 25);
+  var mog = makeChangeGauge('#moor-gauge', 29, 22);
+  var otg = makeChangeGauge('#other-gauge', 22, 12);
+
   var satisfactions = {
     'Sewerage': [[17, 21, 49, 13], [12, 33, 39, 16]],
     'Solid waste': [[39, 41, 19, 0], [58, 32, 9, 1]],
@@ -154,34 +168,19 @@ function init() {
   };
   var satChart = makeChart('#sat-chart', satisfactions, ['High', 'Medium', 'Low', 'Don\'t Know'], ['Dec 2014', 'May 2015']);
 
-  var samsat = {
-    'Water': [[85, 75]],
-    'Sewerage': [[54, 39]],
-    'Solid waste': [[70, 62]],
-    'Roads': [[43, 42]],
-    'Street Lighting': [[55, 48]],
-    'Mother and Child Care': [[57, 43]],
-    'Cemetery': [[80, 53]],
-    'Parks': [[52, 38]],
-    'Playgrounds': [[49, 37]],
-    'Library': [[59, 53]]
-  };
-
-  var samChart = makeChart('#sam-chart', samsat, ['Samurdhi', 'Others']);
-
   var availability = {
-    'Water': [[96, 4, 0]],
-    'Sewerage': [[74, 17, 10]],
-    'Solid waste': [[98, 2, 1]],
-    'Roads': [[90, 6, 4]],
-    'Street Lighting': [[90, 3, 6]],
-    'Mother and Child Care': [[49, 48, 4]],
-    'Cemetery': [[67, 28, 5]],
-    'Parks': [[32, 44, 24]],
-    'Playgrounds': [[26, 57, 17]],
-    'Library': [[32, 49, 19]]
+    'Water': [[6, 10, 84], [10, 18, 72]],
+    'Sewerage': [[17, 30, 53], [64, 11, 25]],
+    'Solid waste': [[90, 3, 7], [97, 1, 2]],
+    'Roads': [[98, 1, 1], [97, 2, 1]],
+    'Street Lighting': [[50, 3, 47], [77, 1, 23]],
+    'Mother and Child Care': [[40, 29, 31], [61, 37, 2]],
+    'Cemetery': [[67, 23, 11], [65, 33, 2]],
+    'Parks': [[35, 21, 44], [46, 9, 45]],
+    'Playgrounds': [[32, 27, 41], [55, 31, 13]],
+    'Library': [[35, 26, 39], [49, 26, 25]]
   };
-  var availChart = makeChart('#avail-chart', availability, ['Available, Using', 'Available, Not Using', 'Not Available']);
+  var availChart = makeChart('#avail-chart', availability, ['Available, Using', 'Available, Not Using', 'Not Available'], ['Dec 2014', 'May 2015']);
 
 }
 
