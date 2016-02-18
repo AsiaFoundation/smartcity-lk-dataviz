@@ -4635,8 +4635,17 @@
         if ($$.isGaugeType(d.data)) {
             gTic = Math.PI / (gMax - gMin);
             if (d.data.values.length > 1) {
-                d.startAngle = (Math.PI / -2) + gTic * d.data.values[0].value;
-                d.endAngle = (Math.PI / -2) + gTic * d.data.values[1].value;
+                var startValue = d.data.values[0].value * 1;
+                var endValue = d.data.values[1].value * 1;
+                if (Math.abs(endValue - startValue) < 1) {
+                    if (endValue === startValue) {
+                        startValue -= 0.9;
+                    } else {
+                        startValue -= 0.9 / (endValue - startValue);
+                    }
+                }
+                d.startAngle = (Math.PI / -2) + gTic * startValue;
+                d.endAngle = (Math.PI / -2) + gTic * endValue;
             } else {
                 gValue = d.value < gMin ? 0 : d.value < gMax ? d.value - gMin : (gMax - gMin);
                 d.startAngle = -1 * (Math.PI / 2);
@@ -4922,7 +4931,7 @@
             })
             .attr("transform", withTransform ? "scale(1)" : "")
             .style("fill", function (d) {
-                if (d.data.values.length > 1) {
+                if (d.data.values.length > 1 && Math.abs(d.data.values[0].value - d.data.values[1].value) >= 1) {
                     if (d.data.values[0].value > d.data.values[1].value) {
                         return "#FF0000";
                     } else {
@@ -4946,6 +4955,9 @@
               var resp = $$.textForArcLabel(d);
               if (resp.indexOf('-') === -1) {
                 resp = '+' + resp;
+              }
+              if (resp.indexOf('0.') > -1) {
+                resp = resp.replace(/0\.\d/, '0');
               }
               return resp;
             }.bind($$))
