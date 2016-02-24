@@ -7,6 +7,21 @@ $(function() {
   .setView([9.67, 80.15], 13);
   L.tileLayer('//tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
 
+  $.get('viz/data/center.geojson', function (gj) {
+    if (typeof gj === 'string') {
+      gj = JSON.parse(gj);
+    }
+    for (var f = 0; f < gj.features.length; f++) {
+      var myIcon = L.divIcon({className: 'divlabel label-' + f});
+
+      L.marker({
+        lat: gj.features[f].geometry.coordinates[1],
+        lng: gj.features[f].geometry.coordinates[0]
+      }, { icon: myIcon }).addTo(map);
+      $(".label-" + f).text(gj.features[f].properties.GND_N);
+    }
+  });
+
   $.get('viz/data/chavakachcheriya.geojson', function (gj) {
     if (typeof gj === 'string') {
       gj = JSON.parse(gj);
