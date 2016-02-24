@@ -1,4 +1,5 @@
-var map;
+var map, selectLayer;
+var happinessFor = {};
 
 $(function() {
   map = L.map('map', {
@@ -14,11 +15,14 @@ $(function() {
     for (var f = 0; f < gj.features.length; f++) {
       var myIcon = L.divIcon({className: 'divlabel label-' + f});
 
+      var feature = gj.features[f];
+      happinessFor[feature.properties.GND_C] = feature.properties.happiness;
+
       L.marker({
-        lat: gj.features[f].geometry.coordinates[1],
-        lng: gj.features[f].geometry.coordinates[0]
+        lat: feature.geometry.coordinates[1],
+        lng: feature.geometry.coordinates[0]
       }, { icon: myIcon }).addTo(map);
-      $(".label-" + f).text(gj.features[f].properties.GND_N);
+      $(".label-" + f).text(feature.properties.happiness + '%');
     }
   });
 
@@ -48,8 +52,12 @@ $(function() {
             L.latLng(bounds[3], bounds[2])
           ));
 
+          selectLayer && selectLayer.setStyle({ fillOpacity: 0.5 });
+          layer.setStyle({ fillOpacity: 1 });
+          selectLayer = layer;
+
           $("#gn-name").text(feature.properties.GND_N);
-          $("#gn-detail").text(feature.properties.GND_C);
+          $("#gn-detail").text('Overall satisfaction: ' + happinessFor[feature.properties.GND_C] + '%');
         });
       }
     }).addTo(map);
