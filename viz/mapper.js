@@ -39,9 +39,13 @@ $(function() {
     layer.setStyle({ fillOpacity: 0.8 });
     selectLayer = layer;
     selectFeature = feature;
+  }
 
-    $("#gn-name").text(feature.properties.GND_N);
-    $("#gn-detail").text('Overall satisfaction: ' + happinessFor[feature.properties.GND_C] + '%');
+  function describe (feature) {
+    var title = $("<h4>").text(feature.properties.GND_N);
+    var p = $("<p>").text('Overall satisfaction: ' + happinessFor[feature.properties.GND_C] + '%');
+    var outer = $("<div>").append(title).append(p);
+    return outer.html();
   }
 
   $.get('viz/data/center.geojson', function (gj) {
@@ -58,6 +62,7 @@ $(function() {
         lat: feature.geometry.coordinates[1],
         lng: feature.geometry.coordinates[0]
       }, { icon: myIcon }).addTo(map);
+      label.bindPopup(describe(feature));
       label.on('click', function (e) {
         makeClick(feature, layerFor[feature.properties.GND_C]);
       });
@@ -78,6 +83,7 @@ $(function() {
       style: standardStyle,
       onEachFeature: function(feature, layer) {
         layerFor[feature.properties.GND_C] = layer;
+        layer.bindPopup(describe(feature));
         layer.on('click', function (e) {
           makeClick(feature, layer);
         });
