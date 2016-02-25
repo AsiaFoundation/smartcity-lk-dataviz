@@ -11,20 +11,15 @@ $(function() {
   L.tileLayer('//tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
 
   function standardStyle(feature) {
-    var happy = happinessFor[feature.properties.GND_C];
-    var fillColor = '#FF0000';
-    if (happy >= 40) {
-      fillColor = '#F6C600';
-      if (happy >= 60) {
-        fillColor = '#60B044';
-      }
-    }
+    var happy = Math.floor(happinessFor[feature.properties.GND_C] / 100 * 11);
+    var fillColor = ['#d73027', '#d73027', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#d9ef8b', '#a6d96a', '#66bd63', '#1a9850', '#1a9850'][happy];
+
     return {
       color: '#000',
       weight: 1,
       opacity: 1,
       fillColor: fillColor,
-      fillOpacity: 0.4
+      fillOpacity: 0.8
     };
   }
 
