@@ -8,7 +8,7 @@ $(function() {
     attributionControl: false
   })
   .setView([9.67, 80.15], 13);
-  L.tileLayer('//tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
+  L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
   function standardStyle(feature) {
     var happy = Math.floor(happinessFor[feature.properties.GND_C] / 100 * 11);
